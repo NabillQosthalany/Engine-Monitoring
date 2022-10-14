@@ -25,7 +25,7 @@
           </v-btn>
         </div>
         <div class="text-account text-center pb-1">
-          <p>Don’t have account? <router-link to="/regis">Make it here!</router-link></p>
+          <p>Don’t have account? <router-link to="/Register">Make it here!</router-link></p>
         </div>
       </v-card>
     </v-flex>

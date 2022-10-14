@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar app  color="#ffffff" flat>
+  <v-app>
+    <v-app-bar app  color="#fefefe" flat>
       <v-text-field
       hide-details
       label="search.."
@@ -13,13 +13,13 @@
         mdi-cog-outline
       </v-icon>
     </v-btn>
-    <v-btn class="mx-2" fab dark color="info">
+    <v-btn fab dark color="info">
       <v-icon dark> mdi-account-outline </v-icon>
     </v-btn>
     </v-app-bar>
 
     <SideBar />
-    <v-container color="info">
+   <div class="content pa-6">
       
       <v-row dense>
         <v-col v-for="card in cards" :key="card.cardtitle" :value="card.value">
@@ -53,11 +53,14 @@
       <v-col>
         <v-card height="50vh">
           <v-subheader>Lates Update</v-subheader>
+          <v-data-table
+             :headers="headers"
+             :items="update"
+         ></v-data-table>
         </v-card>
       </v-col>
     </v-row>
-
-  </v-container>
+    </div>
   </v-app>
 </template>
 
@@ -132,7 +135,115 @@ export default {
         data: [-2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
             2.0, -0.9]
     }]
-    }
+    },
+
+    headers: [
+          {
+            align: 'start',
+            sortable: false,
+            value: 'name',
+          },
+          { text: 'Username', value: 'username' },
+          { text: 'Type', value: 'type' },
+          { text: 'Port', value: 'port' },
+          { text: 'Haproxy', value: 'haproxy' },
+          { text: 'Git_url', value: 'url' },
+          { text: 'Status', value: 'status' },
+          { text: 'Last Update', value: 'update' },
+        ],
+        update: [
+          {
+            username: 'user1',
+            type: 'service',
+            port: 80,
+            haproxy: 'TCP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user2',
+            type: 'service',
+            port: 80,
+            haproxy: 'HHTP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user3',
+            type: 'server',
+            port: 80,
+            haproxy: 'HTTP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user4',
+            type: 'server',
+            port: 80,
+            haproxy: 'TCP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user5',
+            type: 'service',
+            port: 80,
+            haproxy: 'TCP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user6',
+            type: 'server',
+            port: 80,
+            haproxy: 'HTTP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user7',
+            type: 'service',
+            port: 80,
+            haproxy: 'TCP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user8',
+            type: 'service',
+            port: 80,
+            haproxy: 'TCP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user9',
+            type: 'server',
+            port: 80,
+            haproxy: 'HTTP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+          {
+            username: 'user10',
+            type: 'server',
+            port: 80,
+            haproxy: 'TCP',
+            url: 'git_url',
+            status: 'on',
+            update: '3 minutes ago'
+          },
+        ],
+
   
   }),
   components: {
@@ -141,3 +252,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.content{
+  background-color: #efefef;
+}
+</style>
