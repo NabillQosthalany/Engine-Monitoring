@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app  color="#ffffff">
+    <v-app-bar color="transparent">
       <v-text-field
         hide-details
         filled
@@ -18,7 +18,7 @@
       
       <v-row dense>
         <v-col v-for="card in cards" :key="card.cardtitle" :value="card.value">
-          <v-card color="primary">
+          <v-card color="primary" light>
             <v-list-item two-line>
               <v-list-item-content>
                 <v-list-item-title v-text="card.cardtitle"></v-list-item-title>
@@ -71,7 +71,7 @@ export default {
       { cardtitle: 'User', value: '40 user active' },
       { cardtitle: 'Server', value: '5 server ready' },
       { cardtitle: 'Project',  value: '30 project created' },
-      { cardtitle: 'Other', value: '10 other' },
+      { cardtitle: 'Other', value: '10 other' }
     ],
     options: {
       chart: {
