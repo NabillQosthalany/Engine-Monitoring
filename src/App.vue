@@ -1,15 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>
-
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
 
   data: () => ({
     //
@@ -18,8 +16,7 @@ export default {
 </script>
 
 <style>
-
-.v-main{
+.v-main {
   min-height: 100vh;
 }
 </style>

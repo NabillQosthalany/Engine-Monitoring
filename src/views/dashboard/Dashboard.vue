@@ -13,7 +13,7 @@
         mdi-cog-outline
       </v-icon>
     </v-btn>
-    <v-btn fab dark color="info">
+    <v-btn fab dark color="#c0c0c0">
       <v-icon dark> mdi-account-outline </v-icon>
     </v-btn>
     </v-app-bar>
