@@ -1,9 +1,11 @@
 <template>
-<v-app>
-    <router-view/>
-</v-app>
-</template>
 
+  <v-app>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
+</template>
 <script>
 
 export default {
@@ -14,9 +16,10 @@ export default {
   }),
 };
 </script>
+
+
 <style>
 .v-main{
   min-height: 100vh;
 }
-
 </style>
