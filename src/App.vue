@@ -18,9 +18,6 @@ export default {
 </script>
 
 <style>
-* {
-  background: var(--v-secondary-base);
-}
 
 .v-main{
   min-height: 100vh;
