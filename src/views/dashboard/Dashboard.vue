@@ -20,7 +20,7 @@
 
     <SideBar />
    <div class="content pa-6">
-      
+
       <v-row dense>
         <v-col v-for="card in cards" :key="card.cardtitle" :value="card.value">
           <v-card color="primary">

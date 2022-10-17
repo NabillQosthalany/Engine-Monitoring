@@ -18,7 +18,6 @@
               :color="active ? 'black' : 'white'"
             ></v-icon>
           </v-list-item-icon>
-
           <v-list-item-content>
             <v-list-item-title
               v-text="item.text"
