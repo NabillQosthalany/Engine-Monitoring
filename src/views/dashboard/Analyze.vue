@@ -2,8 +2,9 @@
   <v-app>
     <SideBar />
     <div class="content">
+      <h1 class="header">Analyze</h1>
       <v-row>
-        <v-col cols="12" sm="12">
+        <v-col cols="12" sm="12" class="pt-0">
           <v-card class="card mb-0 pb-0">
             <v-subheader>Activities</v-subheader>
             <highcharts :options="chartOptions"></highcharts>
@@ -177,6 +178,11 @@ export default {
 };
 </script>
 <style scoped>
+.header {
+  color: #000000;
+  font-weight: 300;
+  padding: 10px 10px 0 25px;
+}
 .content {
   height: 100%;
   background-color: #efefef;

@@ -4,6 +4,7 @@ import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
 import Dashboard from "../views/dashboard/Dashboard";
 import Analyze from "../views/dashboard/Analyze";
+import Settings from "../views/dashboard/Settings";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/Analyze",
     name: "AnalyzePage",
     component: Analyze,
+  },
+  {
+    path: "/Settings",
+    name: "SettingsPage",
+    component: Settings,
   },
 ];
 // {

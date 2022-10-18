@@ -11,7 +11,12 @@
     </div>
     <v-list dense class="mt-5">
       <v-list-item-group v-model="selectedItem" color="white">
-        <v-list-item v-for="(item, i) in items" :key="i" v-slot="{ active }">
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.link"
+          v-slot="{ active }"
+        >
           <v-list-item-icon class="ml-6">
             <v-icon
               v-text="item.icon"
@@ -35,10 +40,10 @@ export default {
   data: () => ({
     selectedItem: 0,
     items: [
-      { icon: "mdi-home-outline", text: "Dashboard" },
+      { icon: "mdi-home-outline", text: "Dashboard", link: "/Dashboard" },
       { icon: "mdi-web", text: "Site Management" },
-      { icon: "mdi-chart-pie", text: "Site Analyze" },
-      { icon: "mdi-cog-outline", text: "Settings" },
+      { icon: "mdi-chart-pie", text: "Site Analyze", link: "/Analyze" },
+      { icon: "mdi-cog-outline", text: "Settings", link: "/Settings" },
     ],
   }),
 };
