@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
 import Dashboard from "../views/dashboard/Dashboard";
+import Management from "../views/dashboard/Management.vue"
 
 Vue.use(VueRouter);
 
@@ -15,12 +16,18 @@ const routes = [
   {
     path: '/Dashboard',
     name: 'Dashboard',
-    component: Dashboard
-  }, {
+    component: Dashboard,
+  }, 
+  {
     path: '/Register',
     name: 'RegisterPage',
-    component: Register
+    component: Register,
   },
+  {
+    path: '/Management',
+    name: 'ManagementPage',
+    component: Management,
+  }, 
 ]
   // {
   //   path: '/about',

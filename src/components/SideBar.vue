@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer app dark color="primary">
     <div class="text-center mt-5">
-      <v-img class="mx-auto" src="@/assets/img/logo.png" height="60px" width="150px"></v-img>
+      <v-img class="mx-auto" src="@/assets/img/logo.png" height="70px" width="200px"></v-img>
       <v-divider color="white" class="mt-4"></v-divider>
     </div>
     <v-list dense class="mt-5">
