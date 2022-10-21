@@ -15,6 +15,7 @@
        </div>
         <div class="text-center">
           <v-btn
+              type="submit"
               class="btn-login my-2"
               depressed
               large

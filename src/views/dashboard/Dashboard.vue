@@ -7,20 +7,45 @@
       solo
       prepend-inner-icon="mdi-magnify"
     ></v-text-field>
-
-    <v-btn class="ml-2" icon >
+    <v-btn class="ml-2" icon  href="/Settings">
       <v-icon dark>
         mdi-cog-outline
       </v-icon>
     </v-btn>
-    <v-btn fab dark color="#c0c0c0" small>
-      <v-icon dark> mdi-account-outline </v-icon>
-    </v-btn>
+    <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+        fab
+         dark 
+         color="#c0c0c0" 
+         small
+          v-bind="attrs"
+          v-on="on"
+        >
+        <v-icon dark> mdi-account-outline </v-icon>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item-group
+        v-model="selectedItem"
+        color="primary"
+      >
+        <v-list-item href="/Login">
+          <v-list-item-icon>
+            <v-icon >mdi-logout</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title> Log Out</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+      </v-list>
+    </v-menu>
     </v-app-bar>
 
     <SideBar />
    <div class="content pa-6">
-      
+
       <v-row dense>
         <v-col v-for="card in cards" :key="card.cardtitle" :value="card.value">
           <v-card color="primary">

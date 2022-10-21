@@ -72,7 +72,7 @@
             <div class="text-account text-center pb-1">
               <p>
                 already have an account?
-                <router-link to="/Login">Login Here!</router-link>
+                <router-link to="/">Login Here!</router-link>
               </p>
             </div>
           </v-card>
