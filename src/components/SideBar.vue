@@ -16,6 +16,7 @@
           :key="i"
           :to="item.link"
           v-slot="{ active }"
+          class="text-sidebar"
         >
           <v-list-item-icon class="ml-6">
             <v-icon
@@ -41,7 +42,7 @@ export default {
     selectedItem: 0,
     items: [
       { icon: "mdi-home-outline", text: "Dashboard", link: "/Dashboard" },
-      { icon: "mdi-web", text: "Site Management" },
+      { icon: "mdi-web", text: "Site Management", link: "/Management" },
       { icon: "mdi-chart-pie", text: "Site Analyze", link: "/Analyze" },
       { icon: "mdi-cog-outline", text: "Settings", link: "/Settings" },
     ],
@@ -49,4 +50,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.text-sidebar {
+  font-family: "Poppins", sans-serif;
+}
+</style>

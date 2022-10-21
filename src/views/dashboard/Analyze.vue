@@ -2,7 +2,10 @@
   <v-app>
     <SideBar />
     <div class="content">
-      <h1 class="header">Analyze</h1>
+      <v-app-bar app flat>
+        <h4>Analyze</h4>
+      </v-app-bar>
+
       <v-row>
         <v-col cols="12" sm="12" class="pt-0">
           <v-card class="card mb-0 pb-0">

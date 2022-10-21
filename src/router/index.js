@@ -5,6 +5,7 @@ import Register from "../views/auth/Register";
 import Dashboard from "../views/dashboard/Dashboard";
 import Analyze from "../views/dashboard/Analyze";
 import Settings from "../views/dashboard/Settings";
+import Management from "../views/dashboard/Management";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/Settings",
     name: "SettingsPage",
     component: Settings,
+  },
+  {
+    path: "/Management",
+    name: "ManagementPage",
+    component: Management,
   },
 ];
 // {

@@ -1,17 +1,25 @@
 <template>
   <v-app>
     <v-main>
-      <router-view />
+      <router-view
+          :baseURL="baseURL"
+      />
     </v-main>
   </v-app>
 </template>
 <script>
+import axios from 'axios';
 export default {
-  name: "App",
+  data(){
+    return{
+      baseURL : "https://limitless-lake-55070.herokuapp.com/",
+    }
+  },
+  name: "App"
 
-  data: () => ({
-    //
-  }),
+  // data: () => ({
+  //   //
+  // }),
 };
 </script>
 
