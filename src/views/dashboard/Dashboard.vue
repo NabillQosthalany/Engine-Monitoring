@@ -13,7 +13,7 @@
         mdi-cog-outline
       </v-icon>
     </v-btn>
-    <v-btn fab dark color="#c0c0c0">
+    <v-btn fab dark color="#c0c0c0" small>
       <v-icon dark> mdi-account-outline </v-icon>
     </v-btn>
     </v-app-bar>
@@ -51,7 +51,7 @@
 
     <v-row>
       <v-col>
-        <v-card height="50vh">
+        <v-card>
           <v-subheader>Lates Update</v-subheader>
           <v-data-table
              :headers="headers"
