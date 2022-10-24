@@ -1,11 +1,8 @@
 <template>
     <v-app>
-      <v-app-bar app flat>
-        <h4>Site Management</h4>
-      </v-app-bar>
-  
       <SideBar />
-     <div class="content pa-6">
+     <div class="content">
+        <h1 class="header">Site Management</h1>
         <v-container>
             <v-row>
               <v-col>
@@ -145,10 +142,51 @@
     name: 'Home',
     data: () => ({
 
-       
-        showTable1 : true,
-        showTable2 : true,
-        showTable3 : true
+        search: '',
+        headers1: [
+          {
+            text: 'id',
+            align: 'start',
+            sortable: false,
+            value: 'name',
+          },
+          { text: 'Name ', value: 'name' },
+          { text: 'Username', value: 'username' },
+          { text: 'Status', value: 'status' },
+          { text: 'Project', value: 'project' },
+        ],
+
+        search: '',
+        headers2: [
+          {
+            text: 'id',
+            align: 'start',
+            sortable: false,
+            value: 'name',
+          },
+          { text: 'Name ', value: 'name' },
+          { text: 'Username', value: 'username' },
+          { text: 'Status', value: 'status' },
+          { text: 'Project', value: 'project' },
+        ],
+
+        search: '',
+        headers3: [
+          {
+            text: 'id',
+            align: 'start',
+            sortable: false,
+            value: 'name',
+          },
+          { text: 'Name ', value: 'name' },
+          { text: 'Username', value: 'username' },
+          { text: 'Status', value: 'status' },
+          { text: 'Project', value: 'project' },
+        ],
+
+        showTable1 : false,
+        showTable2 : false,
+        showTable3 : false
 
     }),
     components: {
@@ -161,5 +199,11 @@
   .content{
     background-color: #efefef;
   }
+  .header {
+    color: #000000;
+    font-weight: 300;
+    padding: 10px 10px 0 25px;
+  }
+
   </style>
   

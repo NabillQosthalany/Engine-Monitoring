@@ -28,6 +28,7 @@
             <v-list-item-title
               v-text="item.text"
               :class="active ? 'black--text' : 'white--text'"
+              font-size="24"
             ></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
