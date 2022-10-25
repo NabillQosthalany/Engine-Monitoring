@@ -30,7 +30,7 @@
         v-model="selectedItem"
         color="primary"
       >
-        <v-list-item href="/Login">
+        <v-list-item href="/">
           <v-list-item-icon>
             <v-icon >mdi-logout</v-icon>
           </v-list-item-icon>
