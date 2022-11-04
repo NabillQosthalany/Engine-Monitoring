@@ -55,4 +55,12 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next)=>{
+  const isAuthenticated = JSON.parse(sessionStorage.getItem(('token')))
+  if(to.name !== 'LoginPage' && !isAuthenticated) next({name:'LoginPage'});
+  if(to.name === 'LoginPage' && isAuthenticated) next({name:'Dashboard'});
+
+  else next()
+})
+
 export default router;

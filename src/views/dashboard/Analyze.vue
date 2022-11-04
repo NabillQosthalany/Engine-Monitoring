@@ -2,19 +2,7 @@
   <v-app>
     <SideBar />
     <div class="content">
-      <v-app-bar app flat>
-        <h4>Analyze</h4>
-      </v-app-bar>
-
-      <v-row>
-        <v-col cols="12" sm="12" class="pt-0">
-          <v-card class="card mb-0 pb-0">
-            <v-subheader>Activities</v-subheader>
-            <highcharts :options="chartOptions"></highcharts>
-          </v-card>
-        </v-col>
-      </v-row>
-
+     <h1 class="header">Analyze</h1>
       <v-container class="px-6">
         <div class="chart d-flex justify-content-center mt-15">
           <highcharts :options="options1" class="chart-donut"></highcharts>

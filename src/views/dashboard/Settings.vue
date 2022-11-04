@@ -2,9 +2,7 @@
   <v-app>
     <SideBar />
     <div class="content">
-      <v-app-bar fixed app flat>
-        <h4>Settings</h4>
-      </v-app-bar>
+   <h1 class="header">Settings</h1>
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
@@ -13,7 +11,7 @@
                 <v-avatar size="20rem">
                   <v-icon size="20rem"> mdi-account </v-icon>
                 </v-avatar>
-                <h1>Hello</h1>
+                <h2>Hello</h2>
                 <h5>User 1</h5>
               </div>
             </v-card>
@@ -24,7 +22,7 @@
                 <v-container>
                   <v-row class="pa-6">
                     <v-col cols="12" md="12">
-                      <h1 class="pb-3">User Profile</h1>
+                      <h2 class="pb-3">User Profile</h2>
                       <v-text-field
                         v-model="Username"
                         :rules="nameRules"
@@ -85,11 +83,16 @@ export default {
   height: 100%;
   background-color: #efefef;
 }
-h1 {
+h2 {
   font-family: "Poppins", sans-serif;
   color: #000000;
   font-weight: 600;
   font-size: 40px;
+}
+.header {
+  color: #000000;
+  font-weight: 300;
+  padding: 10px 10px 0 25px;
 }
 h5 {
   font-family: "Poppins", sans-serif;

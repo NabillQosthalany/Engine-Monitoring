@@ -16,29 +16,29 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn
         fab
-         dark 
-         color="#c0c0c0" 
+         dark
+         color="#c0c0c0"
          small
           v-bind="attrs"
           v-on="on"
         >
-        <v-icon dark> mdi-account-outline </v-icon>
+        <v-icon dark> mdi-account-outline
+        </v-icon>
         </v-btn>
       </template>
-      <v-list>
+      <v-list class="list-item">
         <v-list-item-group
-        v-model="selectedItem"
-        color="primary"
-      >
-        <v-list-item href="/">
-          <v-list-item-icon>
-            <v-icon >mdi-logout</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title> Log Out</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
+            color="primary"
+        >
+          <v-list-item @click="logOut">
+            <v-list-item-icon>
+              <v-icon >mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title> Log Out</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-menu>
     </v-app-bar>
@@ -93,9 +93,10 @@
 <script>
 import SideBar from "@/components/SideBar";
 import { Chart } from 'highcharts-vue';
-
-
 export default {
+  props: {
+    user: Object,
+  },
   name: 'Home',
   data: () => ({
     cards: [
@@ -271,6 +272,12 @@ export default {
 
   
   }),
+  methods:{
+    logOut(){
+     sessionStorage.removeItem('token');
+     this.$router.push('/')
+    }
+  },
   components: {
     SideBar,
      highcharts: Chart
@@ -281,4 +288,11 @@ export default {
 .content{
   background-color: #efefef;
 }
+.v-list-item{
+font-family: 'Poppins', sans-serif;
+}
+.list-item{
+  padding: 0px;
+}
+
 </style>

@@ -83,7 +83,7 @@ export default {
         .then((res) => {
           if ((res.data.status = "success")) {
             const token = res.data.token;
-            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("token", true);
             this.$router.push("/Dashboard");
           }
         })
