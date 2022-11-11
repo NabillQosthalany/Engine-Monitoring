@@ -9,8 +9,7 @@
               <v-data-table
 
                   :headers="headers2"
-                  :items="desserts2"
-                  :search="search2"
+                  :items="project"
                   sort-by="calories"
                   class="elevation-1"
               >
@@ -134,20 +133,20 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                    <v-dialog v-model="dialogDelete2" max-width="500px">
-                      <v-card>
-                        <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="closeDelete2">Cancel</v-btn>
-                          <v-btn color="blue darken-1" text @click="deleteItemConfirm2">OK</v-btn>
-                          <v-spacer></v-spacer>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
                   </v-toolbar>
                 </template>
                 <template v-slot:item.actions="{ item }">
+                  <v-dialog v-model="dialogDelete2" max-width="500px">
+                    <v-card>
+                      <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="closeDelete2">Cancel</v-btn>
+                        <v-btn color="blue darken-1" text @click="deleteItemConfirm2(item)">OK</v-btn>
+                        <v-spacer></v-spacer>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                   <v-icon
                       small
                       class="mr-2"
@@ -157,7 +156,7 @@
                   </v-icon>
                   <v-icon
                       small
-                      @click="deleteItem2(item)"
+                      @click="dialogDelete2 = true"
                   >
                     mdi-delete
                   </v-icon>
@@ -180,9 +179,14 @@
 
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name:"ServerManagement",
   data: () => ({
+    project:[
+
+    ],
     dialog2: false,
     dialogDelete2: false,
     search2: '',
@@ -192,11 +196,11 @@ export default {
         text: 'Server Id',
         align: 'start',
         sortable: false,
-        value: 'serverId',
+        value: 'server_id',
       },
-      {text: 'Server Ip', value: 'serverIp'},
-      {text: 'description', value: 'description'},
-      {text: 'Project Id', value: 'projectId'},
+      {text: 'Server Ip', value: 'server_ip'},
+      {text: 'description', value: 'keterangan'},
+      {text: 'Project Id', value: 'project_id'},
       {text: 'Username', value: 'username'},
       {text: 'Actions', value: 'actions', sortable: false},
     ],
@@ -204,25 +208,15 @@ export default {
     desserts2: [],
     editedIndex2: -1,
     editedItem2: {
-      serverId: '',
-      serverIp: '',
-      description: '',
-      projectId: '',
-      username: '',
     },
     defaultItem2: {
-      serverId: '',
-      serverIp: '',
-      description: '',
-      projectId: '',
-      username: '',
     },
 
 
   }),
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex2 === -1 ? 'New Item' : 'Edit Item'
     },
   },
   watch: {
@@ -230,23 +224,24 @@ export default {
       val || this.close()
     },
     dialogDelete(val) {
-      val || this.closeDelete()
+      val || this.closeDelete2()
     },
   },
-  created2() {
+  created() {
     this.initialize2()
+    this.getData()
   },
   methods: {
     initialize2() {
       this.desserts2 = [
-        {
-          serverId: '',
-          serverIp: '',
-          description: '',
-          projectId: '',
-          username: '',
-        },
       ]
+    },
+    getData(){
+      axios.get("http://localhost:8080/server/")
+          .then(response=>{
+           this.project =  response.data
+
+          })
     },
     editItem2(item) {
       this.editedIndex2 = this.desserts2.indexOf(item)
@@ -254,6 +249,7 @@ export default {
       this.dialog2 = true
     },
     deleteItem2(item) {
+      console.log(item)
       this.editedIndex2 = this.desserts2.indexOf(item)
       this.editedItem2 = Object.assign({}, item)
       this.dialogDelete2 = true
