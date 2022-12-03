@@ -4,11 +4,21 @@
     <div class="content">
      <h1 class="header">Analyze</h1>
       <v-container class="px-6">
-        <div class="chart d-flex justify-content-center mt-15">
-          <highcharts :options="options1" class="chart-donut"></highcharts>
-          <highcharts :options="options2" class="chart-donut"></highcharts>
-          <highcharts :options="options3" class="chart-donut"></highcharts>
-          <highcharts :options="options4" class="chart-donut"></highcharts>
+        <div class="chart d-flex justify-content-center mt-8">
+          <v-row>
+            <v-col cols="6">
+              <highcharts :options="options1"  class="chart-donut"></highcharts>
+            </v-col>
+            <v-col cols="6">
+              <highcharts :options="options2" class="chart-donut"></highcharts>
+            </v-col>
+            <v-col cols="6">
+              <highcharts :options="options3" class="chart-donut"></highcharts>
+            </v-col>
+            <v-col cols="6">
+              <highcharts :options="options4" class="chart-donut"></highcharts>
+            </v-col>
+          </v-row>
         </div>
       </v-container>
     </div>
@@ -18,14 +28,15 @@
 <script>
 import SideBar from "@/components/SideBar";
 import { Chart } from "highcharts-vue";
+import axios from "axios";
 export default {
   name: "Home",
   data: () => ({
     options1: {
       chart: {
         type: "pie",
-        height: "250",
-        width: "250",
+        height: "270",
+        width: "270",
       },
       title: {
         text: "",
@@ -38,8 +49,8 @@ export default {
           name: "type",
           data: [
             {
-              name: "Server",
-              y: 80,
+              name: "Project",
+              y: 0,
             },
           ],
         },
@@ -48,8 +59,8 @@ export default {
     options2: {
       chart: {
         type: "pie",
-        height: "250",
-        width: "250",
+        height: "270",
+        width: "270",
       },
       colors: ["#831995"],
       title: {
@@ -64,7 +75,7 @@ export default {
           data: [
             {
               name: "Server",
-              y: 80,
+              y: 0,
             },
           ],
         },
@@ -73,8 +84,8 @@ export default {
     options3: {
       chart: {
         type: "pie",
-        height: "250",
-        width: "250",
+        height: "270",
+        width: "270",
       },
       colors: ["#1B9519"],
       title: {
@@ -88,8 +99,8 @@ export default {
           name: "type",
           data: [
             {
-              name: "Server",
-              y: 80,
+              name: "Engine",
+              y: 0,
             },
           ],
         },
@@ -98,8 +109,8 @@ export default {
     options4: {
       chart: {
         type: "pie",
-        height: "250",
-        width: "250",
+        height: "270",
+        width: "270",
       },
       colors: ["#7F9AA9"],
       title: {
@@ -113,55 +124,61 @@ export default {
           name: "type",
           data: [
             {
-              name: "Server",
-              y: 80,
+              name: "Service",
+              y: 0,
             },
           ],
         },
       ],
     },
 
-    chartOptions: {
-      chart: {
-        type: "line",
-        height: "300",
-      },
-      title: {
-        text: "",
-      },
-      xAxis: {
-        categories: ["Mon", "Tue", "Wed", "Tru", "Fri", "Sat", "Sun"],
-      },
-      yAxis: {
-        title: {
-          text: "activities",
-        },
-      },
-      plotOptions: {
-        line: {
-          dataLabels: {
-            enabled: true,
-          },
-          enableMouseTracking: false,
-        },
-      },
-      series: [
-        {
-          name: "Service",
-          data: [
-            16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0,
-            17.8,
-          ],
-        },
-        {
-          name: "Server",
-          data: [
-            -2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5, 2.0, -0.9,
-          ],
-        },
-      ],
-    },
   }),
+
+  created(){
+    this.getChartProject()
+    this.getChartServer()
+    this.getChartEngine()
+    this.getChartService()
+  },
+
+  methods:{
+    getChartProject() {
+      axios.get('http://localhost:8080/project/count')
+          .then(res => {
+            this.options1.series[0].data[0].y = res.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
+    },
+    getChartServer() {
+      axios.get('http://localhost:8080/server/count')
+          .then(res => {
+            this.options2.series[0].data[0].y = res.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
+    },
+    getChartEngine() {
+      axios.get('http://localhost:8080/monitoring/countEngine')
+          .then(res => {
+            this.options3.series[0].data[0].y = res.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
+    },
+    getChartService() {
+      axios.get('http://localhost:8080/monitoring/countService')
+          .then(res => {
+            this.options4.series[0].data[0].y = res.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
+    },
+  },
   components: {
     SideBar,
     highcharts: Chart,

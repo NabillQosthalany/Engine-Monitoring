@@ -9,7 +9,7 @@
       ></v-img>
       <v-divider color="white" class="mt-4"></v-divider>
     </div>
-    <v-list dense class="mt-5">
+    <v-list dense class="mt-5 list-card">
       <v-list-item-group v-model="selectedItem" color="white">
         <v-list-item
           v-for="(item, i) in items"
@@ -34,6 +34,15 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
+
+    <v-list-item @click="logOut" class="pl-10">
+      <v-list-item-icon>
+        <v-icon>mdi-logout</v-icon>
+      </v-list-item-icon>
+      <v-list-item-content>
+        <v-list-item-title> Log Out</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </v-navigation-drawer>
 </template>
 
@@ -45,14 +54,22 @@ export default {
       { icon: "mdi-home-outline", text: "Dashboard", link: "/Dashboard" },
       { icon: "mdi-web", text: "Site Management", link: "/Management" },
       { icon: "mdi-chart-pie", text: "Site Analyze", link: "/Analyze" },
-      { icon: "mdi-cog-outline", text: "Settings", link: "/Settings" },
     ],
   }),
+  methods:{
+    logOut() {
+      sessionStorage.removeItem('token');
+      this.$router.push('/')
+    },
+  }
 };
 </script>
 
 <style>
 .text-sidebar {
   font-family: "Poppins", sans-serif;
+}
+.list-card{
+  margin-bottom: 35vh;
 }
 </style>

@@ -31,11 +31,6 @@ const routes = [
     component: Analyze,
   },
   {
-    path: "/Settings",
-    name: "SettingsPage",
-    component: Settings,
-  },
-  {
     path: "/Management",
     name: "ManagementPage",
     component: Management,

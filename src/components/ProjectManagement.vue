@@ -1,265 +1,353 @@
 <template>
+  <v-data-table
+      :headers="headers"
+      :items="resultData"
+      sort-by="calories"
+      class="elevation-1"
+  >
+    <template v-slot:item.status="{ item }">
+      <v-chip
+          :color="getColor(item.status)"
+          dark
+      >
+        {{ item.status }}
+      </v-chip>
+    </template>
+    <template v-slot:top>
+      <v-toolbar
+          flat
+      >
+        <v-toolbar-title class="mr-15">Project Monitoring</v-toolbar-title>
+        <v-divider
+            class="mx-4"
+            inset
+            vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
 
-  <v-card flat color="#efefef">
-    <v-card-text>
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-card>
-              <v-data-table
+        <!--        Tombol Search-->
+        <v-text-field
+            class="mx-10                             "
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search By Project"
+            single-line
+            hide-details
+        ></v-text-field>
 
-                  :headers="headers3"
-                  :items="desserts3"
-                  :search="search3"
-                  sort-by="calories"
-                  class="elevation-1"
-              >
-                <template v-slot:top>
-                  <v-toolbar
-                      flat
-                  >
-                    <v-toolbar-title
-                        class="text-1"
+        <!--        Dialog Create-->
+        <v-dialog v-model="dialogCreate" persistant max-width="500px">
+          <template v-slot:activator="{on,attrs}">
+            <v-btn color="primary" dark v-bind="attrs" v-on="on">
+              Tambah
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+            <span class="headline">
+              Tambah Data
+            </span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-form
+                    ref="form"
+                    v-model="valid">
+                  <v-row>
 
-                    >
-                      Project Management
-                    </v-toolbar-title>
-                    <v-divider
-                        class="mx-4"
-                        inset
-                        vertical
-                    ></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-text-field class="px-10"
-                                  v-model="search"
-                                  append-icon="mdi-magnify"
-                                  label="Search"
-                                  single-line
-                                  hide-details
-                    ></v-text-field>
+                    <v-col cols="6">
+                      <v-text-field :rules="[rules.required]" label="Project Name" v-model="projectName" required>
+                      </v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-text-field  :rules="[rules.required]" label="Username" v-model="username" required>
+                      </v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-text-field label="Keterangan" v-model="keterangan">
+                      </v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-select
+                          v-model="select"
+                          :items="dataStatus"
+                          label="Status"
+                          required
+                      ></v-select>
+                    </v-col>
 
-                    <v-dialog
-                        v-model="dialog3"
-                        max-width="500px"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            color="primary"
-                            dark
-                            class="mb-2"
-                            v-bind="attrs"
-                            v-on="on"
-                         >
-                          New Item
-                        </v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="text-h5">{{ formTitle }}</span>
-                        </v-card-title>
 
-                        <v-card-text>
-                          <v-container>
-                            <v-row>
-                              <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                              >
-                                <v-text-field
-                                    v-model="editedItem3.projectId"
-                                    label="Project Id"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                              >
-                                <v-text-field
-                                    v-model="editedItem3.projectName"
-                                    label="Project Name"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                              >
-                                <v-text-field
-                                    v-model="editedItem3.keterangan"
-                                    label="Keterangan"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                              >
-                                <v-text-field
-                                    v-model="editedItem3.username"
-                                    label="Username"
-                                ></v-text-field>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-card-text>
+                  </v-row>
+                </v-form>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="blue-draken-1" text @click="closeDialogCreate">Batal</v-btn>
+              <v-btn color="blue-draken-1" :disabled="!valid" text @click="createProject">Tambah</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
 
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="close3"
-                          >
-                            Cancel
-                          </v-btn>
-                          <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="save3"
-                          >
-                            Save
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                    <v-dialog v-model="dialogDelete3" max-width="500px">
-                      <v-card>
-                        <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="closeDelete3">Cancel</v-btn>
-                          <v-btn color="blue darken-1" text @click="deleteItemConfirm3">OK</v-btn>
-                          <v-spacer></v-spacer>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </v-toolbar>
-                </template>
-                <template v-slot:item.actions="{ item }">
-                  <v-icon
-                      small
-                      class="mr-2"
-                      @click="editItem3(item)"
-                  >
-                    mdi-pencil
-                  </v-icon>
-                  <v-icon
-                      small
-                      @click="deleteItem3(item)"
-                  >
-                    mdi-delete
-                  </v-icon>
-                </template>
-                <template v-slot:no-data>
-                  <v-btn
-                      color="primary"
-                      @click="initialize3"
-                  >
-                    Reset
-                  </v-btn>
-                </template>
-              </v-data-table>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-  </v-card>
+        <!--        Dialog Edit-->
+        <v-dialog v-model="dialogEdit" persistant max-width="500px">
+          <v-card>
+            <v-card-title>
+            <span class="headline">
+              Update Data Project
+            </span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="6">
+                    <v-text-field :rules="Text2" label="Project Name" v-model="editProjectName" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-text-field :rules="Text3" label="Keterangan" v-model="editKeterangan" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-text-field disabled label="Username" v-model="editUsername" required>
+                    </v-text-field>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-select
+                        v-model="editStatus"
+                        :items="dataStatus"
+                        label="Select"
+                        required
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-draken-1" text @click="dialogEdit = false">Batal</v-btn>
+              <v-btn color="blue-draken-1" text @click="updateProject">Ubah</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
 
+        <!--        Dialog Delete-->
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue-draken-1" text @click="dialogDelete = false">Batal</v-btn>
+              <v-btn color="blue-draken-1" text @click="deleteProject()">Delete</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon
+          small
+          class="mr-2"
+          @click="editProject(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+          small
+          @click="getDelete(item)"
+      >
+        mdi-delete
+      </v-icon>
+    </template>
+  </v-data-table>
 </template>
+
 <script>
+import Swal from "sweetalert2";
+
 import axios from "axios";
 
 export default {
-  name:"ServerManagement",
   data: () => ({
-    dialog3: false,
-    dialogDelete3: false,
-    search3: '',
-    tabs: null,
-    headers3: [
-      {text: 'Project Id', value: 'projectId'},
-      {text: 'Project Name', value: 'projectName'},
+    dataProject: [],
+    dialogCreate: false,
+    dialogEdit: false,
+    dialogDelete: false,
+    projectId: 0,
+    search: '',
+    projectName: '',
+    keterangan: '',
+    username: '',
+    editProjectId: 0,
+    editProjectName: '',
+    editKeterangan: '',
+    editUsername: '',
+    editStatus: '',
+    delete_projectId: '',
+    delete_projectName: '',
+    valid: false,
+    select: '',
+
+    rules: {
+      required: value => !!value || 'Required.',
+    },
+
+
+    headers: [
+      {text: 'Project Name', value: 'project_name'},
       {text: 'Keterangan', value: 'keterangan'},
       {text: 'Username', value: 'username'},
+      {text: 'Status', value: 'status'},
       {text: 'Actions', value: 'actions', sortable: false},
     ],
-    desserts3: [],
-    editedIndex3: -1,
-    editedItem3: {
-    },
-    defaultItem3: {
-    },
+    Text2: [
+      v => !!v || 'Project Name is required',
+    ],
+    Text3: [
+      v => !!v || 'Keterangan is required',
+    ],
+    Text4: [
+      v => !!v || 'Username is required',
+    ],
+    dataStatus: [
+      'Active',
+      'Available',
+      'Non Active',
+      'Blocked'
+    ],
   }),
-  computed: {
-    formTitle() {
-      return this.editedIndex3 === -1 ? 'New Item' : 'Edit Item'
-    },
-  },
-  watch: {
-    dialog(val) {
-      val || this.close()
-    },
-    dialogDelete(val) {
-      val || this.closeDelete3()
-    },
-  },
   created() {
-    this.initialize3()
-    this.getData()
+    this.selectProject()
+  },
+  computed: {
+    resultData() {
+      if (this.search) {
+        return this.dataProject.filter(i => i.project_name.toLowerCase().includes(this.search.toLowerCase()))
+      } else {
+        return this.dataProject
+      }
+    }
   },
   methods: {
-    initialize3() {
-      this.desserts3 = [
-      ]
+    closeDialogCreate() {
+      this.$refs.form.reset()
+      this.dialogCreate = false
     },
-    getData(){
-      const Payload = {
-        "id": 0,
-        "keterangan": "string",
-        "projectName": "string",
-        "username": "string"
-      }
-      axios.get("https://limitless-lake-55070.herokuapp.com/category/",Payload)
+    selectProject() {
+      axios.get('http://localhost:8080/project/')
+          .then(res => {
+            this.dataProject = res.data
+          })
+          .catch(err => {
+            console.log(err)
+          })
     },
-    editItem3(item) {
-      this.editedIndex3 = this.desserts3.indexOf(item)
-      this.editedItem3 = Object.assign({}, item)
-      this.dialog3 = true
-    },
-    deleteItem3(item) {
-      this.editedIndex3 = this.desserts3.indexOf(item)
-      this.editedItem3 = Object.assign({}, item)
-      this.dialogDelete3 = true
-    },
-    deleteItemConfirm3() {
-      this.desserts3.splice(this.editedIndex3, 1)
-      this.closeDelete3()
-    },
-    close3() {
-      this.dialog3 = false
-      this.$nextTick(() => {
-        this.editedItem3 = Object.assign({}, this.defaultItem3)
-        this.editedIndex3 = -2
+
+    createProject() {
+      axios.post('http://localhost:8080/project/save-project', {
+        "keterangan": this.keterangan,
+        "project_id": this.projectId,
+        "project_name": this.projectName,
+        "username": this.username,
+        "status": this.select
       })
+          .then(res => {
+            this.selectProject()
+            this.keterangan = '',
+                this.projectId = 0,
+                this.dialogCreate = false,
+                this.projectName = ''
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'The entered username is not available!',
+            })
+          })
     },
-    closeDelete3() {
-      this.dialogDelete3 = false
-      this.$nextTick(() => {
-        this.editedItem3 = Object.assign({}, this.defaultItem3)
-        this.editedIndex3 = -1
+    editProject(dataProject) {
+      this.dialogEdit = true
+      this.editProjectId = dataProject.project_id
+      this.editProjectName = dataProject.project_name
+      this.editKeterangan = dataProject.keterangan
+      this.editUsername = dataProject.username
+      this.editStatus = dataProject.status
+    },
+    updateProject() {
+      axios.put('http://localhost:8080/project/update-project', {
+        "keterangan": this.editKeterangan,
+        "project_id": this.editProjectId,
+        "project_name": this.editProjectName,
+        "username": this.editUsername,
+        "status": this.editStatus
+
       })
+          .then(res => {
+            this.selectProject();
+            this.dialogEdit = false
+            Swal.fire({
+              icon: 'success',
+              title: 'Data Project has been updated',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'The entered username is not available!',
+            })
+          })
     },
-    save3() {
-      if (this.editedIndex3 > -1) {
-        Object.assign(this.desserts3[this.editedIndex3], this.editedItem3)
-      } else {
-        this.desserts3.push(this.editedItem3)
-      }
-      this.close3()
+    getDelete(dataProject) {
+      this.dialogDelete = true
+      this.delete_projectId = dataProject.project_id
+      this.delete_projectName = dataProject.project_name
+    },
+    deleteProject() {
+      const id = this.delete_projectId;
+      console.log(this.delete_projectId)
+      axios.delete(`http://localhost:8080/project/delete-project/${id}`, {
+        data: {
+          project_id: this.delete_projectId
+        }
+      })
+          .then(res => {
+            this.selectProject();
+            this.dialogDelete = false
+            Swal.fire({
+              icon: 'success',
+              title: 'Data Project has been deleted',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          })
+          .catch(err => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'The entered username is not available!',
+            })
+          })
+    },
+    getColor(dataStatus) {
+      let status = dataStatus?.toLowerCase()
+
+      if (status == 'active') return 'green'
+      else if (status == 'non active') return 'red'
+      else if (status == 'available') return 'warning'
+      else return 'blocked'
     }
-  }
+
+  },
 }
 </script>

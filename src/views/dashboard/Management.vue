@@ -27,6 +27,14 @@
               >
                 Project Management
               </v-tab>
+              <v-tab
+              >
+                Sosmed Management
+              </v-tab>
+              <v-tab
+              >
+                Monitoring Management
+              </v-tab>
             </v-tabs>
           </template>
         </v-toolbar>
@@ -43,6 +51,18 @@
             <ProjectManagement/>
 
           </v-tab-item>
+
+          <!--                  Sosmed Management Card-->
+
+          <v-tab-item>
+            <SosmedManagement/>
+          </v-tab-item>
+
+          <!--                  Monitoring Management Card-->
+
+          <v-tab-item>
+            <MonitoringManagement/>
+          </v-tab-item>
         </v-tabs-items>
       </template>
     </div>
@@ -52,14 +72,19 @@
 import SideBar from "@/components/SideBar";
 import ServerManagement from "@/components/ServerManagement";
 import ProjectManagement from "@/components/ProjectManagement";
+import SosmedManagement from "@/components/SosmedManagement";
+import MonitoringManagement from "@/components/MonitoringManagement";
+
 
 
 export default {
 components: {
     SideBar,
     ServerManagement,
-    ProjectManagement
-  },
+    ProjectManagement,
+  SosmedManagement,
+MonitoringManagement
+},
 
   data: () => ({
   tabs:null
