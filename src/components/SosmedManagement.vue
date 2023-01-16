@@ -84,11 +84,13 @@
               </v-row>
               <template v-if="selectedFile !== null">
                 <v-list-item>
+
+
                   <v-list-item-content>
                     <v-list-item-title>
                       {{ selectedFile.name }}
                       <span class="ml-3 text--secondary">
-                    {{  bytesToSize(selectedFile.size) }}</span
+                    {{ bytesToSize(selectedFile.size) }}</span
                       >
                     </v-list-item-title>
                   </v-list-item-content>
@@ -562,12 +564,12 @@ export default {
               this.isSuccess = true;
               this.messageUploading =
 
-              Swal.fire({
-                icon: 'success',
-                title:  "Congratulation! Your upload successfully done",
-                showConfirmButton: false,
-                timer: 2000
-              })
+                  Swal.fire({
+                    icon: 'success',
+                    title: "Congratulation! Your upload successfully done",
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
               this.closeDialog();
             })
             .catch(err => {
@@ -722,6 +724,7 @@ export default {
       else if (status == 'available') return 'warning'
       else return 'black'
     }
+
 
   }
 }

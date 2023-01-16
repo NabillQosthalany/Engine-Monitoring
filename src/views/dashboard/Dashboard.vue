@@ -25,8 +25,6 @@
           </v-card>
         </v-col>
       </v-row>
-
-
       <v-row>
         <v-col cols="12" sm="8">
           <v-card style="height:50vh">
@@ -69,7 +67,7 @@
                     <v-card>
                       <v-card-title>
             <span class="headline">
-              Tambah Data
+              View All Data
             </span>
                       </v-card-title>
                       <v-card-text v-model="valid">

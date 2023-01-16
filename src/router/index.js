@@ -4,8 +4,8 @@ import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
 import Dashboard from "../views/dashboard/Dashboard";
 import Analyze from "../views/dashboard/Analyze";
-import Settings from "../views/dashboard/Settings";
 import Management from "../views/dashboard/Management";
+import example from "../views/auth/example"
 
 Vue.use(VueRouter);
 
@@ -35,6 +35,11 @@ const routes = [
     name: "ManagementPage",
     component: Management,
   },
+  {
+    path:"/example",
+    name:"examplePage",
+    component: example
+  }
 ];
 // {
 //   path: '/about',
