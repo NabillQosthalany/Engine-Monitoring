@@ -1,0 +1,255 @@
+<template>
+  <v-container fluid fill-height>
+    <v-layout class="align-center justify-center">
+      <v-flex>
+        <v-card class="card mx-auto pa-3" width="29rem">
+          <v-img
+            class="mx-auto"
+            src="@/assets/img/Logo.png"
+            width="150px"
+          ></v-img>
+          <h1 class="text-center">Login</h1>
+          <div>
+            <form ref="form" @submit.prevent="login()">
+              <v-text-field
+                v-model="username"
+                name="userName"
+                label="Username"
+                type="text"
+                placeholder="username"
+                class="username"
+                required
+                outlined
+              ></v-text-field>
+
+              <v-text-field
+                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show3 ? 'text' : 'password'"
+                v-model="password"
+                name="password"
+                label="Password"
+                placeholder="Password"
+                class="password"
+                outlined
+                @click:append="show3 = !show3"
+              ></v-text-field>
+
+              <div class="red--text">{{ errorMessage }}</div>
+              <div class="text-center">
+                <v-btn
+                  type="submit"
+                  class="mt-4"
+                  depressed
+                  large
+                  rounded
+                  color="#4F6499"
+                  dark
+                  value="log in"
+                  >Login</v-btn
+                >
+              </div>
+            </form>
+          </div>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+<script>
+import Swal from "sweetalert2";
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      show3: false,
+      username: "",
+      password: "",
+      errorMessage: "",
+    };
+  },
+  methods: {
+    login() {
+      axios
+        .post("http://localhost:8080/user/login", {
+          userName: this.username,
+          password: this.password,
+        })
+        .then((res) => {
+          this.$router.replace({
+            name: "Dashboard",
+          });
+
+          console.log(res.data);
+
+          Swal.fire({
+            icon: "success",
+            title: "Login Succesfully",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Password or Username was worng!",
+          });
+        });
+    },
+  },
+  computed: {
+    toggleMessage: function () {
+      return this.isRegister
+        ? this.stateObj.register.message
+        : this.stateObj.login.message;
+    },
+  },
+};
+</script>
+<style scoped>
+.container {
+  background-color: #2a3551;
+}
+.card {
+  border-radius: 15px !important;
+}
+.text-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.btn-login {
+  width: 23rem;
+}
+a {
+  text-decoration: none !important;
+  color: #1a70d7 !important;
+}
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+}
+</style>
+<!-- <template>
+  <v-app>
+    <v-main>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title
+                  >{{
+                    isRegister ? stateObj.register.name : stateObj.login.name
+                  }}
+                  form</v-toolbar-title
+                >
+              </v-toolbar>
+              <v-card-text>
+                <form
+                  ref="form"
+                  @submit.prevent="isRegister ? register() : login()"
+                >
+                  <v-text-field
+                    v-model="username"
+                    name="username"
+                    label="Username"
+                    type="text"
+                    placeholder="username"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-model="password"
+                    name="password"
+                    label="Password"
+                    type="password"
+                    placeholder="password"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-if="isRegister"
+                    v-model="confirmPassword"
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    type="password"
+                    placeholder="cocnfirm password"
+                    required
+                  ></v-text-field>
+                  <div class="red--text">{{ errorMessage }}</div>
+                  <v-btn
+                    type="submit"
+                    class="mt-4"
+                    color="primary"
+                    value="log in"
+                    >{{
+                      isRegister ? stateObj.register.name : stateObj.login.name
+                    }}</v-btn
+                  >
+                  <div
+                    class="grey--text mt-4"
+                    v-on:click="isRegister = !isRegister"
+                  >
+                    {{ toggleMessage }}
+                  </div>
+                </form>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      username: "",
+      password: "",
+      confirmPassword: "",
+      isRegister: false,
+      errorMessage: "",
+      stateObj: {
+        register: {
+          name: "Register",
+          message: "Aleady have an Acoount? login.",
+        },
+        login: {
+          name: "Login",
+          message: "Register",
+        },
+      },
+    };
+  },
+  methods: {
+    login() {
+      const { username } = this;
+      this.$router.replace({
+        name: "Dashboard",
+        params: { username: username },
+      });
+    },
+    register() {
+      if (this.password == this.confirmPassword) {
+        this.isRegister = false;
+        this.errorMessage = "";
+        this.$refs.form.reset();
+      } else {
+        this.errorMessage = "password did not match";
+      }
+    },
+  },
+  computed: {
+    toggleMessage: function () {
+      return this.isRegister
+        ? this.stateObj.register.message
+        : this.stateObj.login.message;
+    },
+  },
+};
+</script> -->

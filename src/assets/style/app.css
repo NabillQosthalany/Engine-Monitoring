@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  color: #4f6499;
+}
+.btn-login {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.text-input {
+  font-family: "Poppins", sans-serif;
+}
+h2 {
+  font-family: "Poppins", sans-serif;
+  color: #121212;
+  font-weight: 400;
+}
