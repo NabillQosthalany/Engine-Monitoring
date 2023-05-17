@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/auth/Login";
-import Register from "../views/auth/Register";
 import Dashboard from "../views/dashboard/Dashboard";
 import Management from "../views/dashboard/Management.vue";
 import Analyze from "../views/dashboard/Analyze";
@@ -23,11 +22,6 @@ const routes = [
     path: "/Dashboard",
     name: "Dashboard",
     component: Dashboard,
-  },
-  {
-    path: "/Register",
-    name: "RegisterPage",
-    component: Register,
   },
   {
     path: "/Management",
