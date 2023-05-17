@@ -204,59 +204,70 @@ export default {
 
     chartOptions: {
       chart: {
-        type: "line",
-        width: 1000,
+        type: "column",
       },
       title: {
-        text: "Daily Update",
+        align: "center",
+        text: "Daily Account Entry",
       },
 
-      xAxis: {
-        tickInterval: 7 * 24 * 3600,
-        type: "datetime",
-        startOnTick: true,
-        startOfWeek: 0,
-        labels: {
-          format: "{value:%d-%m-%Y}",
-          rotation: 90,
-          y: 30,
-          align: "center",
+      accessibility: {
+        announceNewData: {
+          enabled: true,
         },
       },
-
+      xAxis: {
+        type: "category",
+      },
       yAxis: {
         title: {
-          text: "",
+          text: "Total Account",
         },
+      },
+      legend: {
+        enabled: false,
       },
       plotOptions: {
-        line: {
+        series: {
+          borderWidth: 0,
           dataLabels: {
             enabled: true,
+            format: "{point.y:.1f}",
           },
-          enableMouseTracking: false,
         },
-        // series: {
-        //   pointStart: Date.UTC(1683763200),
-        //   pointInterval: 7 * 24 * 3600,
-        // },
       },
+
+      tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat:
+          '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>',
+      },
+
       series: [
         {
-          name: "Reggane",
-          data: [16.0, 18, 27.1, 7.9, 30.2, 3.4, 38.8],
-        },
-        {
-          name: "Regane",
-          data: [18.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8],
-        },
-        {
-          name: "Reggan",
-          data: [10.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8],
-        },
-        {
-          name: "Regge",
-          data: [19.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8],
+          colorByPoint: true,
+          data: [
+            {
+              name: "",
+              y: 0,
+            },
+            {
+              name: "",
+              y: 0,
+            },
+            {
+              name: "",
+              y: 0,
+            },
+            {
+              name: "",
+              y: 0,
+            },
+            {
+              name: "",
+              y: 0,
+            },
+          ],
         },
       ],
       credits: {
@@ -268,7 +279,7 @@ export default {
     this.getSosmed();
     this.getStatus();
     this.getPieChart();
-    // this.getLineChart();
+    this.getBarChart();
   },
   methods: {
     getSosmed() {
@@ -326,26 +337,26 @@ export default {
           console.log(err);
         });
     },
-    // getLineChart() {
-    //   axios
-    //     .get("http://localhost:8080/account/dailyUpdate")
-    //     .then((res) => {
-    //       let update = res.data;
+    getBarChart() {
+      axios
+        .get("http://localhost:8080/account/dailyUpdate")
+        .then((res) => {
+          let update = res.data;
 
-    //       const options = update.map((u) => {
-    //         return {
-    //           name: u.type,
-    //           datas: u.data.total,
-    //         };
-    //       });
-    //       console.log(res.data);
+          const options = update.map((u) => {
+            return {
+              name: u.type,
+              y: u.total,
+            };
+          });
+          console.log(res.data);
 
-    //       this.chartOptions.series[0].datas = options;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
+          this.chartOptions.series[0].data = options;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   components: {
     SideBar,
