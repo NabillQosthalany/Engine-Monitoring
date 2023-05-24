@@ -1,92 +1,93 @@
 <template>
   <v-app>
     <SideBar />
-    <div class="content pa-6">
+    <div class="content">
       <h2 class="header mb-2">Statistic</h2>
+      <v-container fluid>
+        <!-- Total data -->
 
-      <!-- Total data -->
+        <v-row dense>
+          <v-col v-for="(item, id) in items" :key="id">
+            <v-card color="white" class="rounded-xl">
+              <v-list>
+                <v-list-item-group>
+                  <v-list-item>
+                    <v-list-item-icon>
+                      <v-icon v-text="item.icon" color="primary" large></v-icon>
+                    </v-list-item-icon>
 
-      <v-row dense>
-        <v-col v-for="(item, id) in items" :key="id">
-          <v-card color="white" class="rounded-xl">
-            <v-list>
-              <v-list-item-group>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon v-text="item.icon" color="primary" large></v-icon>
-                  </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title
+                        v-text="item.title"
+                        class="font-weight-bold"
+                      ></v-list-item-title>
+                      <v-list-item-subtitle class="black--text">
+                        {{ item.value || "0" }}
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle class="font-italic">
+                        total account
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
 
-                  <v-list-item-content>
-                    <v-list-item-title
-                      v-text="item.title"
-                      class="font-weight-bold"
-                    ></v-list-item-title>
-                    <v-list-item-subtitle class="black--text">
-                      {{ item.value || "0" }}
-                    </v-list-item-subtitle>
-                    <v-list-item-subtitle class="font-italic">
-                      total account
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
-        </v-col>
-      </v-row>
+        <!-- Chart -->
 
-      <!-- Chart -->
+        <v-row>
+          <v-col cols="12" sm="4">
+            <v-card style="height: 50vh">
+              <highcharts :options="Options"></highcharts>
+            </v-card>
+          </v-col>
+          <v-col cols="12" sm="8">
+            <v-card style="height: 50vh">
+              <v-subheader></v-subheader>
+              <highcharts :options="chartOptions"></highcharts>
+            </v-card>
+          </v-col>
+        </v-row>
 
-      <v-row>
-        <v-col cols="12" sm="4">
-          <v-card style="height: 50vh">
-            <highcharts :options="Options"></highcharts>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="8">
-          <v-card style="height: 50vh">
-            <v-subheader></v-subheader>
-            <highcharts :options="chartOptions"></highcharts>
-          </v-card>
-        </v-col>
-      </v-row>
+        <!-- Data Status -->
+        <v-row>
+          <v-col>
+            <v-card color="white" style="height: 30vh">
+              <div>
+                <v-subheader>Data Update</v-subheader>
+                <v-row style="padding-left: 70px">
+                  <v-col v-for="total in totals" :key="totals.key">
+                    <v-list>
+                      <v-list-item-group>
+                        <v-list-item>
+                          <v-list-item-content>
+                            <v-list-item-title class="font-weight-bold">
+                              {{ total.type }}
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
 
-      <!-- Data Status -->
-      <v-row>
-        <v-col>
-          <v-card color="white" style="height: 30vh">
-            <div>
-              <v-subheader>Data Update</v-subheader>
-              <v-row style="padding-left: 70px">
-                <v-col v-for="total in totals" :key="totals.key">
-                  <v-list>
-                    <v-list-item-group>
-                      <v-list-item>
-                        <v-list-item-content>
-                          <v-list-item-title class="font-weight-bold">
-                            {{ total.type }}
+                        <v-list-item
+                          v-for="statistic in total.statistic"
+                          :key="total.statistic.key"
+                        >
+                          <v-list-item-title>
+                            {{ statistic.name }} =
+                            {{ statistic.count || "0" }}
                           </v-list-item-title>
-                        </v-list-item-content>
-                      </v-list-item>
-
-                      <v-list-item
-                        v-for="statistic in total.statistic"
-                        :key="total.statistic.key"
-                      >
-                        <v-list-item-title>
-                          {{ statistic.name }} =
-                          {{ statistic.count || "0" }}
-                        </v-list-item-title>
-                      </v-list-item>
-                    </v-list-item-group>
-                  </v-list>
-                </v-col>
-                <v-divider vertical></v-divider>
-              </v-row>
-            </div>
-          </v-card>
-        </v-col>
-      </v-row>
+                        </v-list-item>
+                      </v-list-item-group>
+                    </v-list>
+                  </v-col>
+                  <v-divider vertical></v-divider>
+                </v-row>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </v-app>
 </template>
@@ -365,6 +366,12 @@ export default {
 };
 </script>
 <style scoped>
+.header {
+  color: #000000;
+  font-weight: 300;
+  padding: 10px 10px 0 25px;
+  font-family: "Poppins", sans-serif;
+}
 .content {
   background-color: #efefef;
   height: 105vh;

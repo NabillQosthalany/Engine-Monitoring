@@ -2,7 +2,7 @@
   <v-app>
     <SideBar />
     <div class="content">
-      <h1 class="header">Maintenance</h1>
+      <h2 class="header mb-2">Maintenance</h2>
       <v-container>
         <v-card>
           <!-- HERE -->
@@ -25,27 +25,10 @@ export default {
   height: 100%;
   background-color: #efefef;
 }
-h2 {
-  font-family: "Poppins", sans-serif;
-  color: #000000;
-  font-weight: 600;
-  font-size: 40px;
-}
 .header {
   color: #000000;
   font-weight: 300;
   padding: 10px 10px 0 25px;
-}
-h5 {
   font-family: "Poppins", sans-serif;
-  color: #000000;
-  font-weight: 400;
-  font-size: 20px;
-}
-
-.header {
-  color: #000000;
-  font-weight: 300;
-  padding: 10px 10px 0 25px;
 }
 </style>
