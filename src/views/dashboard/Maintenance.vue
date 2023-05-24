@@ -8,12 +8,6 @@
           <!-- HERE -->
           <iframe src="http://instagram.com/" width="640" height="480" />
         </v-card>
-
-        <v-btn>
-          <v-list-item href="https://instagram.com" target="_blank"
-            >Google</v-list-item
-          >
-        </v-btn>
       </v-container>
     </div>
   </v-app>
