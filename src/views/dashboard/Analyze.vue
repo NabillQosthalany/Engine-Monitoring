@@ -74,7 +74,7 @@
                           :key="total.statistic.key"
                         >
                           <v-list-item-title>
-                            {{ statistic.name }} =
+                            {{ statistic.name || totals.status }} =
                             {{ statistic.count || "0" }}
                           </v-list-item-title>
                         </v-list-item>
@@ -218,7 +218,13 @@ export default {
         },
       },
       xAxis: {
-        type: "category",
+        categories: [
+          "Instagram",
+          "Facebook",
+          "Whatsapp",
+          "Telegram",
+          "Twitter",
+        ],
       },
       yAxis: {
         title: {

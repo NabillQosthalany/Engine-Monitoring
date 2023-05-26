@@ -66,7 +66,7 @@ export default {
 
     updateCrawler() {
       axios
-        .put("https://jsonplaceholder.typicode.com/posts/", {
+        .put("http://192.168.20.225:8500/account/update/", {
           id: this.id,
           web_cookies: this.web_cookies,
         })
