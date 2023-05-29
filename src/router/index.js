@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/auth/Login";
 import Dashboard from "../views/dashboard/Dashboard";
-import Management from "../views/dashboard/Management.vue";
+// import Management from "../views/dashboard/Management.vue";
 import Analyze from "../views/dashboard/Analyze";
 import ProjectManagement from "../views/Management/ProjectManagement";
 import ServerManagement from "../views/Management/ServerManagement";
@@ -24,11 +24,11 @@ const routes = [
     component: Dashboard,
     props: {},
   },
-  {
-    path: "/Management",
-    name: "ManagementPage",
-    component: Management,
-  },
+
+  //   path: "/Management",
+  //   name: "ManagementPage",
+  //   component: Management,
+  // },
   {
     path: "/Analyze",
     name: "AnalyzePage",
