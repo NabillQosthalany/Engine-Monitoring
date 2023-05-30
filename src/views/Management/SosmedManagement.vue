@@ -459,9 +459,9 @@
               mdi-pencil
             </v-icon>
             <v-icon small @click="getDelete(item)"> mdi-delete </v-icon>
-            <v-icon small @click="Click" target="_blank">
+            <!-- <v-icon small @click="Click" target="_blank">
               mdi-instagram
-            </v-icon>
+            </v-icon> -->
           </template>
         </v-data-table>
       </v-container>

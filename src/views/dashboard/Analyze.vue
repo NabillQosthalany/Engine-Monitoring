@@ -6,30 +6,28 @@
       <v-container fluid>
         <!-- Total data -->
 
-        <v-row dense>
+        <v-row>
           <v-col v-for="(item, id) in items" :key="id">
             <v-card color="white" class="rounded-xl">
               <v-list>
-                <v-list-item-group>
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon v-text="item.icon" color="primary" large></v-icon>
-                    </v-list-item-icon>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon" color="primary" large></v-icon>
+                  </v-list-item-icon>
 
-                    <v-list-item-content>
-                      <v-list-item-title
-                        v-text="item.title"
-                        class="font-weight-bold"
-                      ></v-list-item-title>
-                      <v-list-item-subtitle class="black--text">
-                        {{ item.value || "0" }}
-                      </v-list-item-subtitle>
-                      <v-list-item-subtitle class="font-italic">
-                        total account
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      v-text="item.title"
+                      class="font-weight-bold"
+                    ></v-list-item-title>
+                    <v-list-item-subtitle class="black--text">
+                      {{ item.value || "0" }}
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle class="font-italic">
+                      total account
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
               </v-list>
             </v-card>
           </v-col>
